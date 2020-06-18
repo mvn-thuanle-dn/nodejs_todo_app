@@ -1,0 +1,5 @@
+{
+	"username": "root",
+	"password": "root",
+	"db_name" : "nodejs_db_todo_app"
+}
