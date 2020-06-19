@@ -1,13 +1,16 @@
-var express    = require("express");
-var bodyParser = require("body-parser");
-var morgan     = require("morgan");
-var mongoose   = require("mongoose"); 
+var express             = require("express");
+var bodyParser          = require("body-parser");
+var morgan              = require("morgan");
+var mongoose            = require("mongoose");
+var displayRoutes       = require('express-routemap');
 
 //db config
 var config     = require("./config");
 
 //setupController 
 var seeding    = require("./api/controllers/setupController");
+//taskController
+var tasks 	   = require("./api/controllers/taskController");
 
 //env
 var app  = express();
@@ -30,8 +33,10 @@ app.set("view engine", "ejs");
 //db info
 // console.log(config.getDbConnectionString());
 mongoose.connect(config.getDbConnectionString());
+
 //create seeding data from controllers
-seeding(app);
+// seeding(app);
+tasks(app);
 //config route
 app.get("/", function(req, res) {
 	res.render("index");
@@ -41,4 +46,5 @@ app.get("/", function(req, res) {
 app.listen(port, function(err) {
 	if (err) throw err;
 	console.log(`App listening on port ${port}`);
+	displayRoutes(app);
 });
