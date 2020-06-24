@@ -14,10 +14,6 @@ function getTasks(res) {
 module.exports = function(app) {
 	//get all task
 	app.get("/api/tasks", function(req, res) {
-		// const { page = 1, limit = 10 } = req.query;
-
-		// getTasks(res).limit(limit * 1).skip((page - 1) * limit).exec();
-		// const count = getTasks(res).countDocuments();
 		getTasks(res);
 	}) 
 
@@ -53,11 +49,11 @@ module.exports = function(app) {
 	  * Update a task 
 	  */
 	app.put("/api/tasks", function(req, res) {
-		if (!req.body.id) {
+		if (!req.body._id) {
 			return res.status(500).send("ID is required");
 		} else {
 			Task.update({
-				_id: req.body.id
+				_id: req.body._id
 			}, {
 				text: req.body.text,
 				isDone: req.body.status

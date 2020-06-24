@@ -1,0 +1,19 @@
+html {
+	overflow-y: scroll;
+}
+
+body {
+	margin-top: 30px;
+}
+
+#list-task {
+	margin-bottom: 30px;
+}
+
+#create-task {
+	margin-bottom: 50px;
+}
+
+.strike {
+	text-decoration: line-through;
+}

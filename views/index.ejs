@@ -1,9 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="app.tasksManager">
 <head>
 	<title>Node angular js TODO apps</title>
+
+	<!-- load cdn -->
+	<link href="//stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	<link href="//stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-xeditable/0.10.1/css/xeditable.min.css" />
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+	<!-- load script cdn -->
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-xeditable/0.10.1/js/xeditable.min.js"></script>
+
+	<!-- load js app -->
+	<script type="text/javascript" src="assets/js/main/app.js"></script>
+	<script type="text/javascript" src="assets/js/main/services/svTaskManager.js"></script>
 </head>
-<body>
-	<h1>To do applications</h1>
+<body ng-controller="thuanController">
+	<div class="container">
+		<div class="jumbotron">
+			    <h1>{{ appName }} <span class="badge badge-info">{{ tasks.length }}</span></h1>
+		</div>
+		<div id="list-task" class="row">
+			<div class="col-sm-6 col-sm-offset-3">
+				<div class="checkbox" ng-repeat="task in tasks">
+					 <input type="checkbox" ng-model="task.isDone" ng-change="updateTask(task)"> 
+					 <a href ng-click="removeTask(task)"><i class="fa fa-remove"></i></a>
+					 <a href ng-click="textBtnForm.$show()" ng-hide="textBtnForm.$visible"><i class="fa fa-edit"></i></a>
+					 <span ng-class="{ strike: task.isDone }" editable-text="task.text" e-form="textBtnForm" onaftersave="updateTask(task)">{{ task.text }}</span>
+				</div>
+				<p class="text-center" ng-show="loading">
+					<span class="fa fa-spinner fa-spin fa-4x"></span>
+				</p>
+			</div>
+		</div>
+		<div id="create-task" class="row">
+			<div class="col-sm-8 col-sm-offset-2 text-center">
+				<form>
+					<div class="form-group">
+						<input ng-model="formData.text" type="text" name="add-task" class="form-control input-lg text-center" placeholder="Please input somthing here">
+					</div>
+					<button type="submit" class="btn btn-primary btn-lg" ng-disabled="!formData.text" ng-click="createTask()">Create a task</button>
+				</form>
+			</div>
+		</div>
+		 
+	</div>
 </body>
 </html>
